@@ -34,7 +34,7 @@ par['latent dim'] = 2*par['num complex'] + par['num real']
 #prepare data
 from scipy.io import loadmat
 from Utils import create_dataset1
-dataset=loadmat(par['data name'])['X']
+dataset=loadmat('data/'+par['data name'])['X']
 print(dataset.shape)
 
 dataset=dataset[::2]
@@ -171,10 +171,10 @@ print(history.history['State_loss'][::100])
 model_seq=[encoder, Knet, _decoder]
 model_name=['encoder', 'Knet', 'decoder']
 for i in range(len(model_seq)):
-    model_seq[i].save_weights('DK_{}_{}.h5'.format(par['save name'], model_name[i]))
+    model_seq[i].save_weights('weights/DK_{}_{}.h5'.format(par['save name'], model_name[i]))
 
 import pickle
 
-with open("params_{}.pkl".format(par['save name']), "wb") as file:
+with open("weights/params_{}.pkl".format(par['save name']), "wb") as file:
     pickle.dump(par, file, protocol=pickle.HIGHEST_PROTOCOL)
 #np.save('parames_{}.npy'.format(par['save name']), par) # could use pickle
