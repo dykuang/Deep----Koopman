@@ -16,12 +16,12 @@ from keras.layers import Input
 import pickle
 exp_name = 'two_basins'
 
-with open("params_{}.pkl".format(exp_name), "rb") as file:
+with open("weights/params_{}.pkl".format(exp_name), "rb") as file:
     params = pickle.load(file)
 
 #params = np.load('parames_{}.npy'.format(exp_name)).item()
 
-data = loadmat(params['data name'])['X']
+data = loadmat('data/'+ params['data name'])['X']
 
 #data = data[::4]
 
@@ -38,7 +38,7 @@ dataX, dataY = create_dataset1(data)
 model_seq = Build_Model(params)
 model_name=['encoder', 'Knet', 'decoder']
 for i in range(len(model_seq)):
-    model_seq[i].load_weights('DK_{}_{}.h5'.format(params['save name'], model_name[i]))
+    model_seq[i].load_weights('weights/DK_{}_{}.h5'.format(params['save name'], model_name[i]))
     
 
 encoder, Knet, decoder = model_seq
